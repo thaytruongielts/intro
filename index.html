@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Spooky Practice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #000;
+            color: #ff9900;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle, rgba(25, 0, 25, 0.7) 0%, rgba(0, 0, 0, 1) 70%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path fill="%234b0082" d="M50 0L61.8 38.2L100 38.2L69.1 61.8L80.9 100L50 76.4L19.1 100L30.9 61.8L0 38.2L38.2 38.2z"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 2rem;
+            background: rgba(10, 0, 10, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 153, 0, 0.5);
+            animation: pulse-shadow 3s infinite ease-in-out;
+            border: 2px solid #ff9900;
+        }
+
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 25px rgba(255, 153, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 153, 0, 0.8); }
+            100% { box-shadow: 0 0 25px rgba(255, 153, 0, 0.5); }
+        }
+
+        h1 {
+            font-family: 'Creepster', cursive;
+            color: #ff3300;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px #ff9900;
+        }
+
+        .loading-text {
+            color: #ff3300;
+            font-family: 'Creepster', cursive;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .question-card {
+            background: rgba(25, 0, 25, 0.9);
+            border: 1px solid #ff9900;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 153, 0, 0.6);
+        }
+
+        h3 {
+            color: #ff6600;
+            font-family: 'Creepster', cursive;
+            margin: 0 0 0.5rem;
+        }
+
+        p {
+            margin: 0 0 1rem;
+            line-height: 1.6;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ff9900;
+            color: #fff;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .btn-submit {
+            background-color: #ff3300;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 51, 0, 0.4);
+        }
+
+        .btn-submit:hover {
+            background-color: #ff6600;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 51, 0, 0.6);
+        }
+
+        .btn-next {
+            background-color: #4b0082;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(75, 0, 130, 0.4);
+        }
+
+        .btn-next:hover {
+            background-color: #6a0dad;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(75, 0, 130, 0.6);
+        }
+
+        .results-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(25, 0, 25, 0.9);
+            border: 1px solid #ff9900;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 153, 0, 0.5);
+        }
+
+        .result-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .result-item h4 {
+            color: #ff6600;
+            font-family: 'Creepster', cursive;
+            margin-top: 0;
+        }
+
+        .result-item p {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px dashed #ff9900;
+            white-space: pre-wrap;
+        }
+
+        .user-answer {
+            color: #aaffaa;
+        }
+
+        .correct-answer {
+            color: #ffffaa;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .question-card {
+                padding: 1rem;
+            }
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>IELTS Spooky Essay Practice</h1>
+        <p class="loading-text" id="loading-text">Summoning a frightful task...</p>
+        <div id="questions-container" style="display: none;"></div>
+        <div id="button-container" class="button-container" style="display: none;">
+            <button id="submit-btn" class="btn btn-submit">Submit</button>
+            <button id="next-btn" class="btn btn-next">Next</button>
+        </div>
+        <div id="results-container" class="results-container" style="display: none;"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ====================================================================
+            // *** IMPORTANT: You MUST REPLACE this placeholder URL. ***
+            // Follow the instructions below to get your own published Google Apps Script URL.
+            // ====================================================================
+            const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
+            
+            const questionsContainer = document.getElementById('questions-container');
+            const loadingText = document.getElementById('loading-text');
+            const submitBtn = document.getElementById('submit-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const buttonContainer = document.getElementById('button-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            let allData = [];
+
+            // INSTRUCTIONS: GOOGLE APPS SCRIPT SETUP
+            // To get a URL for this script, you must publish it as a web app.
+            // 1. In your Google Sheet, go to Extensions -> Apps Script.
+            // 2. Paste the following code into the script editor and save it:
+            /*
+            function doGet(e) {
+              const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+              const range = sheet.getDataRange();
+              const values = range.getValues();
+              const data = [];
+              for (let i = 1; i < values.length; i++) {
+                const row = values[i];
+                if (row[0] && row[1] && row[2]) { // Ensure columns A, B, C are not empty
+                  data.push({
+                    type: row[0],
+                    topic: row[1],
+                    sample: row[2]
+                  });
+                }
+              }
+              const output = ContentService.createTextOutput(JSON.stringify(data));
+              output.setMimeType(ContentService.MimeType.JSON);
+              output.addCacheControl(CacheControl.noCache());
+              return output;
+            }
+            */
+            // 3. Go to Deploy -> New deployment.
+            // 4. Select "Web app" as the type.
+            // 5. Set "Who has access" to "Anyone" or "Anyone with a Google account" (for security).
+            // 6. Click Deploy.
+            // 7. Copy the "Web app URL" and paste it above to replace 'YOUR_APPS_SCRIPT_URL_HERE'.
+            
+
+            async function fetchData() {
+                questionsContainer.style.display = 'none';
+                buttonContainer.style.display = 'none';
+                resultsContainer.style.display = 'none';
+                loadingText.style.display = 'block';
+
+                if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyEnuS3rNgQvNywIa0lZNG7qFQ4GmgkuZE3cT4k5awcL0mUC4Tuc2-Gm-8nNk2P0HM/exec') {
+                    loadingText.textContent = "Error: Please set up the Google Apps Script URL.";
+                    return;
+                }
+
+                try {
+                    const response = await fetch(SCRIPT_URL, { cache: 'no-cache' });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    allData = await response.json();
+                    displayQuestions();
+                } catch (error) {
+                    loadingText.textContent = `Failed to fetch data: ${error.message}. Check your script URL and deployment settings.`;
+                    console.error('Failed to fetch data:', error);
+                }
+            }
+
+            function displayQuestions() {
+                loadingText.style.display = 'none';
+                questionsContainer.innerHTML = '';
+                resultsContainer.innerHTML = '';
+
+                if (allData.length === 0) {
+                    questionsContainer.textContent = "No data found. Check your Google Sheet.";
+                    questionsContainer.style.display = 'block';
+                    return;
+                }
+
+                const shuffled = allData.sort(() => 0.5 - Math.random());
+                const questions = shuffled.slice(0, 6);
+
+                questions.forEach((q, index) => {
+                    const questionCard = document.createElement('div');
+                    questionCard.className = 'question-card';
+                    questionCard.dataset.index = index;
+                    questionCard.innerHTML = `
+                        <h3>${q.type}</h3>
+                        <p>${q.topic}</p>
+                        <textarea rows="6" placeholder="Type your introduction here..." data-sample="${q.sample}"></textarea>
+                    `;
+                    questionsContainer.appendChild(questionCard);
+                });
+
+                questionsContainer.style.display = 'block';
+                buttonContainer.style.display = 'flex';
+                submitBtn.style.display = 'block';
+                nextBtn.style.display = 'none';
+            }
+
+            function handleSubmit() {
+                let correctCount = 0;
+                resultsContainer.innerHTML = '<h4>Answer Comparison</h4>';
+                const textareas = document.querySelectorAll('#questions-container textarea');
+
+                textareas.forEach((textarea, index) => {
+                    const userAnswer = textarea.value.trim();
+                    const sampleAnswer = textarea.dataset.sample;
+                    
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.innerHTML = `
+                        <p><strong>Your Answer:</strong></p>
+                        <p class="user-answer">${userAnswer || 'No answer provided.'}</p>
+                        <p><strong>Sample Answer:</strong></p>
+                        <p class="correct-answer">${sampleAnswer}</p>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                });
+                
+                // Note: It's not possible to programmatically determine if a writing response is "correct."
+                // The student must compare their answer to the sample answer.
+                const finalMessage = document.createElement('p');
+                finalMessage.style.textAlign = 'center';
+                finalMessage.style.color = '#fff';
+                finalMessage.style.fontSize = '1.2rem';
+                finalMessage.style.fontWeight = 'bold';
+                finalMessage.textContent = "Compare your answer to the sample above and keep practicing! There is no score because writing is subjective.";
+                resultsContainer.appendChild(finalMessage);
+
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'block';
+                resultsContainer.style.display = 'block';
+                
+            }
+
+            function handleNext() {
+                fetchData();
+            }
+
+            submitBtn.addEventListener('click', handleSubmit);
+            nextBtn.addEventListener('click', handleNext);
+
+            // Initial fetch
+            fetchData();
+        });
+    </script>
+</body>
+</html>
